@@ -18,3 +18,13 @@ def schedule_pick():
     while True:
         schedule.run_pending()
         time.sleep(1)
+
+from hikka import Hikka
+from dick_schedule import *
+
+bot = Hikka()
+
+# Зарегистрировать модуль
+bot.register_module(dick_schedule)
+
+bot.run()
