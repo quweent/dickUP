@@ -12,8 +12,8 @@ def send_dick(client, message):
     client.send_message(chat_id="GROUP_CHAT_ID", text="/dick@dickupbot")
 
 # Запускаем бота
-app.run()
-await self.start()
+with app:
+    await app.start()
 
 # Отправляем сообщение каждый час
 while True:
