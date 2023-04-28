@@ -13,6 +13,7 @@ def send_dick(client, message):
 
 # Запускаем бота
 app.run()
+await self.start()
 
 # Отправляем сообщение каждый час
 while True:
