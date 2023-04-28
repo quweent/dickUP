@@ -36,5 +36,12 @@ if __name__ == '__main__':
             except Exception as e:
                 print(e)
 
-    asyncio.get_event_loop().create_task(send_message())
+    # Регистрируем фильтр
+    app.add_handler(
+        pyrogram.filters.create(
+            lambda _, __, message: message.chat.type in ["group", "supergroup"]
+        ),
+        send_message,
+    )
+
     asyncio.get_event_loop().run_forever()
