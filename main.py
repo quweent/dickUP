@@ -27,14 +27,8 @@ if __name__ == '__main__':
     # Запускаем бота
     asyncio.get_event_loop().run_until_complete(start_bot())
 
-    # Создаем фильтр для групповых чатов
-    group_chat_filter = filters.create(
-        lambda _, __, message: message.chat.type in ["group", "supergroup"]
-    )
-
-    # Регистрируем фильтр
+    # Регистрируем обработчик для фильтра групповых чатов
     app.add_handler(filters.group & filters.create(lambda _,__,m: m.command and m.command[0].lower() == "farmdick"), send_dick)
-
 
     # Отправляем сообщение каждый час
     async def send_message():
@@ -54,4 +48,4 @@ if __name__ == '__main__':
                 print(e)
 
     asyncio.get_event_loop().run_until_complete(send_message())
-    asyncio.get_event_loop().run_forever()
+   
