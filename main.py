@@ -7,16 +7,18 @@ app = Client("my_bot")
 
 # Обработчик команды "/farmdick"
 @app.on_message(pyrogram.filters.command("farmdick"))
-def send_dick(client, message):
+async def send_dick(client, message):
     # Отправляем сообщение в группу
-    client.send_message(chat_id="GROUP_CHAT_ID", text="/dick@dickupbot")
+    await client.send_message(chat_id="GROUP_CHAT_ID", text="/dick@dickupbot")
 
 # Запускаем бота
-with app:
-    await app.start()
+async def main():
+    async with app:
+        await app.send_message(chat_id="GROUP_CHAT_ID", text="/dick@dickupbot")
+
+app.run(main())
 
 # Отправляем сообщение каждый час
 while True:
-    with app:
-        app.send_message(chat_id="GROUP_CHAT_ID", text="/dick@dickupbot")
     time.sleep(3600) # ожидаем 1 час
+    main()
