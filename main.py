@@ -24,6 +24,14 @@ if __name__ == '__main__':
     # Запускаем бота
     asyncio.get_event_loop().run_until_complete(start_bot())
 
+    # Создаем фильтр для групповых чатов
+    group_chat_filter = filters.create(
+        lambda _, __, message: message.chat.type in ["group", "supergroup"]
+    )
+
+    # Регистрируем фильтр
+    group_chat_filter.register(app)
+
     # Отправляем сообщение каждый час
     async def send_message():
         while True:
@@ -36,13 +44,5 @@ if __name__ == '__main__':
             except Exception as e:
                 print(e)
 
-    # Регистрируем фильтр
-    app.add_handler(
-        pyrogram.filters.create(
-            lambda _, __, message: message.chat.type in ["group", "supergroup"]
-        ),
-        send_message,
-    )
-
+    asyncio.get_event_loop().run_until_complete(send_message())
     asyncio.get_event_loop().run_forever()
-
