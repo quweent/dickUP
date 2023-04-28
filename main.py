@@ -1,9 +1,18 @@
-from hikka import Hikka
-from dick_schedule import *
+import asyncio
+import schedule
+from telethon import events
 
-bot = Hikka()
+@borg.on(events.NewMessage(pattern="/farmdick"))
+async def farm_dick(event):
+    await event.reply("Starting to farm dicks!")
+    schedule_pick()
 
-# Зарегистрировать модуль
-bot.register_module(dick_schedule)
+def job():
+    borg.send_message("dickupbot", "/dick@dickupbot")
 
-bot.run()
+def schedule_pick():
+    # Запустить задание каждый час
+    schedule.every().hour.do(job)
+    while True:
+        schedule.run_pending()
+        await asyncio.sleep(1)
