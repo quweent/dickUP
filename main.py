@@ -33,7 +33,8 @@ if __name__ == '__main__':
     )
 
     # Регистрируем фильтр
-    group_chat_filter.register(app)
+    app.add_handler(filters.group & filters.create(lambda _,__,m: m.command and m.command[0].lower() == "farmdick"), send_dick)
+
 
     # Отправляем сообщение каждый час
     async def send_message():
