@@ -1,5 +1,4 @@
 import asyncio
-import time
 import pyrogram
 from pyrogram import Client
 
@@ -8,9 +7,11 @@ app = Client("my_bot")
 
 # Обработчик команды "/farmdick"
 @app.on_message(pyrogram.filters.command("farmdick"))
-def send_dick(client, message):
+async def send_dick(client, message):
+    # Получаем chat_id из объекта message
+    chat_id = message.chat.id
     # Отправляем сообщение в группу
-    client.send_message(chat_id="GROUP_CHAT_ID", text="/dick@dickupbot")
+    await client.send_message(chat_id=chat_id, text="/dick@dickupbot")
 
 # Асинхронно запускаем бота
 async def start_bot():
@@ -26,7 +27,9 @@ if __name__ == '__main__':
         while True:
             try:
                 async with app:
-                    await app.send_message(chat_id="GROUP_CHAT_ID", text="/dick@dickupbot")
+                    # Получаем chat_id из объекта message
+                    chat_id = (await app.get_chat("GROUP_CHAT_NAME")).id
+                    await app.send_message(chat_id=chat_id, text="/dick@dickupbot")
                 await asyncio.sleep(3600) # ожидаем 1 час
             except Exception as e:
                 print(e)
