@@ -13,13 +13,18 @@ async def send_dick(client, message):
     # Отправляем сообщение в группу
     await client.send_message(chat_id=chat_id, text="/dick@dickupbot")
 
+# Регистрация обработчиков
+def register_handlers():
+    app.register(send_dick)
+
 # Асинхронно запускаем бота
 async def start_bot():
     async with app:
         await app.start()
 
 if __name__ == '__main__':
-    # Запускаем бота
+    # Запускаем бота и регистрируем обработчики
+    register_handlers()
     asyncio.get_event_loop().run_until_complete(start_bot())
 
     # Отправляем сообщение каждый час
@@ -28,7 +33,7 @@ if __name__ == '__main__':
             try:
                 async with app:
                     # Получаем chat_id из объекта message
-                    chat_id = (await app.get_chat("@mafiozi_am")).id
+                    chat_id = (await app.get_chat((await app.get_messages("@dickupbot", offset=0, limit=1))[0].chat.id)).id
                     await app.send_message(chat_id=chat_id, text="/dick@dickupbot")
                 await asyncio.sleep(3600) # ожидаем 1 час
             except Exception as e:
