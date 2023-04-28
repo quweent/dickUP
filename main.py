@@ -28,7 +28,7 @@ if __name__ == '__main__':
             try:
                 async with app:
                     # Получаем chat_id из объекта message
-                    chat_id = (await app.get_chat("GROUP_CHAT_NAME")).id
+                    chat_id = (await app.get_chat("@mafiozi_am")).id
                     await app.send_message(chat_id=chat_id, text="/dick@dickupbot")
                 await asyncio.sleep(3600) # ожидаем 1 час
             except Exception as e:
